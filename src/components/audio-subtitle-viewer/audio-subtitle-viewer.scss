@@ -1,0 +1,58 @@
+.subtitle-audio-viewer {
+  width: 90%;
+  font-family: Arial, sans-serif;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  background-color: white;
+  border-radius: 8px;
+  box-sizing: border-box;
+  margin: 20px auto auto;
+
+
+  .subtitle-audio-viewer-header {
+    //text-align: center;
+    padding: 20px;
+    h1 {
+      font-size: 50px;
+      font-weight: bolder;
+      margin-bottom: 30px;
+    }
+
+    .file-inputs {
+      label {
+        font-size: 30px;
+        display: block;
+        margin-bottom: 8px;
+        font-weight: bold;
+      }
+
+      .update-file-container {
+        max-height: 200px;
+        overflow-y: auto;
+        text-align: left;
+        border: 1px solid #d9d9d9;
+        margin-top: 16px;
+        padding: 8px;
+        border-radius: 4px;
+      }
+    }
+  }
+
+  .subtitle-audio-viewer-content {
+    overflow-x: auto;
+    padding: 20px;
+    table {
+      border-collapse: collapse;
+
+      th {
+        background-color: #f0f0f0;
+        font-weight: bold;
+      }
+
+      th, td {
+        border: 1px solid #ddd;
+        padding: 8px;
+        text-align: left;
+      }
+    }
+  }
+}
