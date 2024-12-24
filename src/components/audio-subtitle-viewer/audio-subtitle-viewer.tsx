@@ -33,25 +33,6 @@ export const AudioSubtitleViewer = () => {
                 </div>
                 <Flex vertical={false} gap={20} className="file-inputs">
                     <div>
-                        <label htmlFor="audio">Audio Files:</label>
-                        <Dragger multiple accept={"audio/wav"} showUploadList={false} onChange={(e) => {
-                            const files = e.fileList.map((file) => file.originFileObj as File);
-                            setAudioFiles(Array.from(files).sort((a, b) => a.name.localeCompare(b.name)));
-                        }}>
-                            <p className="ant-upload-drag-icon">
-                                <InboxOutlined/>
-                            </p>
-                            <p className="ant-upload-text">Click or drag audio wav file to this area to upload</p>
-                            <div className={"update-file-container"}>
-                                <ul>
-                                    {audioFiles.map((file, index) => (
-                                        <li key={index}>{file.name}</li>
-                                    ))}
-                                </ul>
-                            </div>
-                        </Dragger>
-                    </div>
-                    <div>
                         <label htmlFor="chinese">Chinese Subtitle File:</label>
                         <Dragger accept={".txt"} showUploadList={false} onChange={(e) => {
                             const file = e.file.originFileObj as File;
@@ -105,6 +86,25 @@ export const AudioSubtitleViewer = () => {
                             </div>
                         </Dragger>
                     </div>
+                    <div>
+                        <label htmlFor="audio">Audio Files:</label>
+                        <Dragger multiple accept={"audio/wav"} showUploadList={false} onChange={(e) => {
+                            const files = e.fileList.map((file) => file.originFileObj as File);
+                            setAudioFiles(Array.from(files).sort((a, b) => a.name.localeCompare(b.name)));
+                        }}>
+                            <p className="ant-upload-drag-icon">
+                                <InboxOutlined/>
+                            </p>
+                            <p className="ant-upload-text">Click or drag audio wav file to this area to upload</p>
+                            <div className={"update-file-container"}>
+                                <ul>
+                                    {audioFiles.map((file, index) => (
+                                        <li key={index}>{file.name}</li>
+                                    ))}
+                                </ul>
+                            </div>
+                        </Dragger>
+                    </div>
                 </Flex>
             </div>
             <div className={"subtitle-audio-viewer-content"}>
@@ -112,10 +112,10 @@ export const AudioSubtitleViewer = () => {
                     <thead>
                     <tr>
                         <th>Line</th>
-                        <th>Audio</th>
                         <th>Chinese</th>
                         <th>English</th>
                         <th>Japanese</th>
+                        <th>Audio</th>
                     </tr>
                     </thead>
                     <tbody>
