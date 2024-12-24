@@ -1,130 +1,74 @@
 import "./audio-subtitle-viewer.scss";
-import {Dispatch, SetStateAction, useCallback, useState} from "react";
-import {Flex, Upload} from "antd";
-import {InboxOutlined} from "@ant-design/icons";
+import React, {useState} from "react";
 
 export const AudioSubtitleViewer = () => {
-
-    const {Dragger} = Upload;
-    const [audioFiles, setAudioFiles] = useState<File[]>([]);
-
-    const [chineseSubtitleFile, setChineseSubtitleFile] = useState<File>();
-    const [englishSubtitleFile, setEnglishSubtitleFile] = useState<File>();
-    const [japaneseSubtitleFile, setJapaneseSubtitleFile] = useState<File>();
-
     const [englishSubtitles, setEnglishSubtitles] = useState<string[]>([]);
     const [chineseSubtitles, setChineseSubtitles] = useState<string[]>([]);
     const [japaneseSubtitles, setJapaneseSubtitles] = useState<string[]>([]);
+    const [audioFiles, setAudioFiles] = useState<File[]>([]);
 
-    const setSubtitles = useCallback((file: File, setter: Dispatch<SetStateAction<string[]>>) => {
-        const reader = new FileReader();
-        reader.onload = () => {
-            const content = reader.result as string;
-            setter(content.split("\n"));
-        };
-        reader.readAsText(file);
-    }, []);
+    const handleFileLoad = (event: React.ChangeEvent<HTMLInputElement>, setter: React.Dispatch<React.SetStateAction<string[]>>) => {
+        const file = event.target.files?.[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = () => {
+                const content = reader.result as string;
+                setter(content.split("\n"));
+            };
+            reader.readAsText(file);
+        }
+    };
+
+    const handleAudioFolderLoad = (event: React.ChangeEvent<HTMLInputElement>) => {
+        const files = event.target.files;
+        if (files) {
+            const sortedFiles = Array.from(files).sort((a, b) => a.name.localeCompare(b.name)); // Sort by file name (date order assumed)
+            setAudioFiles(sortedFiles);
+        }
+    };
 
     return (
-        <div className={"subtitle-audio-viewer"}>
-            <div className={"subtitle-audio-viewer-header"}>
-                <div style={{width: "100%", textAlign: "center"}}>
-                    <h1>Audio Subtitle Viewer</h1>
+        <div className="app">
+            <h1>Subtitle Viewer</h1>
+            <div className="file-inputs">
+                <div>
+                    <label htmlFor="english">Load English Subtitles:</label>
+                    <input type="file" id="english" accept=".txt"
+                           onChange={(e) => handleFileLoad(e, setEnglishSubtitles)}/>
                 </div>
-                <Flex vertical={false} gap={20} className="file-inputs">
-                    <div>
-                        <label htmlFor="audio">Audio Files:</label>
-                        <Dragger multiple accept={"audio/wav"} showUploadList={false} onChange={(e) => {
-                            const files = e.fileList.map((file) => file.originFileObj as File);
-                            setAudioFiles(Array.from(files).sort((a, b) => a.name.localeCompare(b.name)));
-                        }}>
-                            <p className="ant-upload-drag-icon">
-                                <InboxOutlined/>
-                            </p>
-                            <p className="ant-upload-text">Click or drag audio wav file to this area to upload</p>
-                            <div className={"update-file-container"}>
-                                <ul>
-                                    {audioFiles.map((file, index) => (
-                                        <li key={index}>{file.name}</li>
-                                    ))}
-                                </ul>
-                            </div>
-                        </Dragger>
-                    </div>
-                    <div>
-                        <label htmlFor="chinese">Chinese Subtitle File:</label>
-                        <Dragger accept={".txt"} showUploadList={false} onChange={(e) => {
-                            const file = e.file.originFileObj as File;
-                            setChineseSubtitleFile(file);
-                            setSubtitles(file, setChineseSubtitles);
-                        }}>
-                            <p className="ant-upload-drag-icon">
-                                <InboxOutlined/>
-                            </p>
-                            <p className="ant-upload-text">Click or drag chinese subtitles to this area to upload</p>
-                            <div className={"update-file-container"}>
-                                <ul>
-                                    <li key={0}>{chineseSubtitleFile?.name}</li>
-                                </ul>
-                            </div>
-                        </Dragger>
-                    </div>
-                    <div>
-                        <label htmlFor="english">English Subtitle File:</label>
-                        <Dragger multiple accept={".txt"} showUploadList={false} onChange={(e) => {
-                            const file = e.file.originFileObj as File;
-                            setEnglishSubtitleFile(file);
-                            setSubtitles(file, setEnglishSubtitles);
-                        }}>
-                            <p className="ant-upload-drag-icon">
-                                <InboxOutlined/>
-                            </p>
-                            <p className="ant-upload-text">Click or drag english subtitles to this area to upload</p>
-                            <div className={"update-file-container"}>
-                                <ul>
-                                    <li key={0}>{englishSubtitleFile?.name}</li>
-                                </ul>
-                            </div>
-                        </Dragger>
-                    </div>
-                    <div>
-                        <label htmlFor="japanese">Japanese Subtitle File:</label>
-                        <Dragger multiple accept={".txt"} showUploadList={false} onChange={(e) => {
-                            const file = e.file.originFileObj as File;
-                            setJapaneseSubtitleFile(file);
-                            setSubtitles(file, setJapaneseSubtitles);
-                        }}>
-                            <p className="ant-upload-drag-icon">
-                                <InboxOutlined/>
-                            </p>
-                            <p className="ant-upload-text">Click or drag japanese subtitles to this area to upload</p>
-                            <div className={"update-file-container"}>
-                                <ul>
-                                    <li key={0}>{japaneseSubtitleFile?.name}</li>
-                                </ul>
-                            </div>
-                        </Dragger>
-                    </div>
-                </Flex>
+                <div>
+                    <label htmlFor="chinese">Load Chinese Subtitles:</label>
+                    <input type="file" id="chinese" accept=".txt"
+                           onChange={(e) => handleFileLoad(e, setChineseSubtitles)}/>
+                </div>
+                <div>
+                    <label htmlFor="japanese">Load Japanese Subtitles:</label>
+                    <input type="file" id="japanese" accept=".txt"
+                           onChange={(e) => handleFileLoad(e, setJapaneseSubtitles)}/>
+                </div>
+                <div>
+                    <label htmlFor="audio">Load Audio Files:</label>
+                    <input type="file" id="audio" accept="audio/wav" multiple onChange={handleAudioFolderLoad}/>
+                </div>
             </div>
-            <div className={"subtitle-audio-viewer-content"}>
+            <div className="subtitle-table">
                 <table>
                     <thead>
                     <tr>
                         <th>Line</th>
                         <th>Audio</th>
-                        <th>Chinese</th>
                         <th>English</th>
+                        <th>Chinese</th>
                         <th>Japanese</th>
                     </tr>
                     </thead>
                     <tbody>
                     {Array.from({
-                        length: Math.max(englishSubtitles.length, chineseSubtitles.length, japaneseSubtitles.length),
+                        length: Math.max(englishSubtitles.length, chineseSubtitles.length, japaneseSubtitles.length, audioFiles.length),
                     }).map((_, index) => (
                         <tr key={index}>
                             <td>{index + 1}</td>
-                            <td>
+                            <td style={{minWidth: 300}}>
                                 {audioFiles[index] ? (
                                     <audio controls>
                                         <source src={URL.createObjectURL(audioFiles[index])} type="audio/wav"/>
@@ -134,8 +78,8 @@ export const AudioSubtitleViewer = () => {
                                     "-"
                                 )}
                             </td>
-                            <td>{chineseSubtitles[index] || "-"}</td>
                             <td>{englishSubtitles[index] || "-"}</td>
+                            <td>{chineseSubtitles[index] || "-"}</td>
                             <td>{japaneseSubtitles[index] || "-"}</td>
                         </tr>
                     ))}
@@ -143,5 +87,5 @@ export const AudioSubtitleViewer = () => {
                 </table>
             </div>
         </div>
-    )
+    );
 }

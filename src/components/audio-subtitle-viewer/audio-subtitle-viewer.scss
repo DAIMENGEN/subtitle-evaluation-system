@@ -1,58 +1,44 @@
-.subtitle-audio-viewer {
-  width: 90%;
-  font-family: Arial, sans-serif;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+.app {
+  width: 100%;
+  margin: 20px;
+  padding: 20px;
   background-color: white;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   border-radius: 8px;
   box-sizing: border-box;
-  margin: 20px auto auto;
-  min-height: 400px;
+}
 
-  .subtitle-audio-viewer-header {
-    padding: 20px;
-    h1 {
-      font-size: 50px;
-      font-weight: bolder;
-      margin-bottom: 30px;
-    }
+.file-inputs label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: bold;
+}
 
-    .file-inputs {
-      label {
-        font-size: 20px;
-        display: block;
-        margin-bottom: 8px;
-        font-weight: bold;
-      }
+.file-inputs input {
+  margin-bottom: 20px;
+}
 
-      .update-file-container {
-        max-height: 200px;
-        overflow-y: auto;
-        text-align: left;
-        border: 1px solid #d9d9d9;
-        margin-top: 16px;
-        padding: 8px;
-        border-radius: 4px;
-      }
-    }
-  }
+.subtitle-table {
+  overflow-x: auto;
+}
 
-  .subtitle-audio-viewer-content {
-    overflow-x: auto;
-    padding: 20px;
-    table {
-      width: 100%;
-      border-collapse: collapse;
+.subtitle-table table {
+  width: 100%;
+  border-collapse: collapse;
+}
 
-      th {
-        background-color: #f0f0f0;
-        font-weight: bold;
-      }
+.subtitle-table th, .subtitle-table td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+}
 
-      th, td {
-        border: 1px solid #ddd;
-        padding: 8px;
-        text-align: left;
-      }
-    }
-  }
+.subtitle-table th {
+  background-color: #f0f0f0;
+  font-weight: bold;
+}
+
+audio {
+  width: 100%;
+  max-width: 300px;
 }
