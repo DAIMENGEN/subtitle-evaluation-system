@@ -6,10 +6,9 @@
   border-radius: 8px;
   box-sizing: border-box;
   margin: 20px auto auto;
-
+  min-height: 400px;
 
   .subtitle-audio-viewer-header {
-    //text-align: center;
     padding: 20px;
     h1 {
       font-size: 50px;
@@ -19,7 +18,7 @@
 
     .file-inputs {
       label {
-        font-size: 30px;
+        font-size: 20px;
         display: block;
         margin-bottom: 8px;
         font-weight: bold;
@@ -41,6 +40,7 @@
     overflow-x: auto;
     padding: 20px;
     table {
+      width: 100%;
       border-collapse: collapse;
 
       th {
