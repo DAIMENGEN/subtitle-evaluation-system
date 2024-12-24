@@ -34,7 +34,7 @@ export const AudioSubtitleViewer = () => {
                 <Flex vertical={false} gap={20} className="file-inputs">
                     <div>
                         <label htmlFor="audio">Audio Files:</label>
-                        <Dragger multiple accept={"audio/wav"} showUploadList={true} onChange={(e) => {
+                        <Dragger multiple accept={"audio/wav"} showUploadList={false} onChange={(e) => {
                             const files = e.fileList.map((file) => file.originFileObj as File);
                             setAudioFiles(Array.from(files).sort((a, b) => a.name.localeCompare(b.name)));
                         }}>
