@@ -60,9 +60,9 @@ export const AudioSubtitleViewer = () => {
                 ).fill(0);
 
                 for (let i = 0; i < loadedRatings.length; i++) {
-                    updatedRatings[i] = loadedRatings[i] || 0;
+                    const rating = parseInt(loadedRatings[i] || "0");
+                    updatedRatings[i] = Math.min(Math.max(rating, 0), 10);
                 }
-                console.log("Loaded ratings:", updatedRatings)
                 setRatings(updatedRatings);
             };
             reader.readAsText(file);
@@ -143,7 +143,7 @@ export const AudioSubtitleViewer = () => {
                                     type="number"
                                     value={ratings[index] || 0}
                                     min={0}
-                                    max={5}
+                                    max={10}
                                     onChange={(e) => handleRatingChange(index, parseInt(e.target.value) || 0)}
                                 />
                             </td>
