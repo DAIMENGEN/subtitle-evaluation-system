@@ -75,6 +75,18 @@ export const AudioSubtitleViewer = () => {
         fileInput.value = "";
     }, []);
 
+
+    const getSubtitleColorClass = useCallback((rating: number) => {
+        if (rating >= 8 && rating <= 10) {
+            return "green-color"; // 绿色优秀
+        } else if (rating >= 5 && rating < 8) {
+            return "yellow-color"; // 可以接受（黄色）
+        } else if (rating > 0 && rating < 5 ) {
+            return "red-color"; // 不可接受（红色）
+        }
+        return "black-color";
+    }, []);
+
     return (
         <div className="app">
             <h1>Subtitle Viewer</h1>
@@ -135,9 +147,9 @@ export const AudioSubtitleViewer = () => {
                                     "-"
                                 )}
                             </td>
-                            <td>{englishSubtitles[index] || "-"}</td>
-                            <td>{chineseSubtitles[index] || "-"}</td>
-                            <td>{japaneseSubtitles[index] || "-"}</td>
+                            <td className={getSubtitleColorClass(ratings[index] || 0)}>{englishSubtitles[index] || "-"}</td>
+                            <td className={getSubtitleColorClass(ratings[index] || 0)}>{chineseSubtitles[index] || "-"}</td>
+                            <td className={getSubtitleColorClass(ratings[index] || 0)}>{japaneseSubtitles[index] || "-"}</td>
                             <td>
                                 <input
                                     type="number"
