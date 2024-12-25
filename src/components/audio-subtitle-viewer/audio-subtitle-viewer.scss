@@ -10,6 +10,11 @@
   margin-top: 20px;
 }
 
+.app h1 {
+  font-size: 30px;
+  margin-bottom: 20px;
+}
+
 .file-inputs label {
   display: block;
   margin-bottom: 8px;
@@ -43,4 +48,8 @@
 audio {
   width: 100%;
   max-width: 300px;
+}
+
+.operate-buttons {
+  margin-bottom: 20px;
 }
